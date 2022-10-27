@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Basket {
+public class Basket implements Serializable{
     protected int price[];
     protected String products[];
     protected int counts[];
@@ -20,17 +20,9 @@ public class Basket {
         this.counts = counts;
     }
 
-    public static Basket loadFromTxtFile(File textFile) throws FileNotFoundException {
-        try (Scanner scanner = new Scanner(new FileInputStream(textFile))) {
-            String[] product = scanner.nextLine().split(" ");
-            int[] price = Arrays.stream(scanner.nextLine().split(" "))
-                    .mapToInt(Integer::parseInt).toArray();
-
-            int[] totalProduct = Arrays.stream(scanner.nextLine().trim().split(" "))
-                    .mapToInt(Integer::parseInt).toArray();
-            return new Basket(product, price, totalProduct);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public static Basket loadBin(File binFile) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream loadBin = new ObjectInputStream(new FileInputStream(binFile))) {
+            return (Basket) loadBin.readObject();
         }
     }
 
@@ -49,21 +41,9 @@ public class Basket {
         System.out.println("Вы купили на сумму " + sum + " руб.");
     }
 
-    public void saveTxt(File textFile) throws IOException {
-        try (PrintWriter printText = new PrintWriter(textFile)) {
-            for (String product : products) {
-                printText.print(product + " ");
-            }
-            printText.println();
-            for (int priceProd : price) {
-                printText.print(priceProd + " ");
-            }
-            printText.println();
-            for (int countProd : counts) {
-                printText.print(countProd + " ");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void saveBin(File binFile) throws IOException {
+        try (ObjectOutputStream saveBin = new ObjectOutputStream(new FileOutputStream(binFile))) {
+            saveBin.writeObject(this);
         }
     }
 }

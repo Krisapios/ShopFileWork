@@ -9,10 +9,14 @@ public class Main {
         int[] prices = {100, 200, 300};
 
         Basket basket = new Basket(products, prices);
-        File basketTxt = new File("basket.txt");
+        File basketBin = new File("basket.bin");
 
-        if (!basketTxt.createNewFile()) {
-            basket = Basket.loadFromTxtFile(basketTxt);
+        if (!basketBin.createNewFile()) {
+            try {
+                basket = Basket.loadBin(basketBin);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("Список загружен.");
         }
 
@@ -32,7 +36,7 @@ public class Main {
             int productCount = Integer.parseInt(parts[1]);
             basket.addToCart(productNumber, productCount);
         }
-        basket.saveTxt(basketTxt);
+        basket.saveBin(basketBin);
         basket.printCart();
     }
 }
