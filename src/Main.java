@@ -7,7 +7,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String[] products = {"Хлеб", "Яблоки", "Молоко"};
         int[] prices = {100, 200, 300};
-
         Basket basket = new Basket(products, prices);
         File basketBin = new File("basket.bin");
 
