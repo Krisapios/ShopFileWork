@@ -20,7 +20,6 @@ public class Main {
         for (int i = 0; i < products.length; i++) {
             System.out.println((i + 1) + ". " + products[i] + " " + prices[i]);
         }
-
         while (true) {
             System.out.println("Выберите товар и количество ИЛИ введите 'end' ");
             String input = scanner.nextLine();

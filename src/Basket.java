@@ -31,7 +31,6 @@ public class Basket {
             return new Basket(product, price, totalProduct);
         }
     }
-
     public void addToCart(int productNum, int amount) {
         counts[productNum] += amount;
     }
