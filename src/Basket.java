@@ -29,8 +29,6 @@ public class Basket {
             int[] totalProduct = Arrays.stream(scanner.nextLine().trim().split(" "))
                     .mapToInt(Integer::parseInt).toArray();
             return new Basket(product, price, totalProduct);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -62,8 +60,6 @@ public class Basket {
             for (int countProd : counts) {
                 printText.print(countProd + " ");
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

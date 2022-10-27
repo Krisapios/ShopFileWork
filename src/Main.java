@@ -13,7 +13,7 @@ public class Main {
 
         if (!basketTxt.createNewFile()) {
             basket = Basket.loadFromTxtFile(basketTxt);
-            System.out.println("Список загружен.");
+            System.out.println("Корзина загружена.");
         }
 
         System.out.println("Список возможных товаров для покупки");
