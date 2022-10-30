@@ -1,8 +1,10 @@
+import com.google.gson.Gson;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Basket {
+public class Basket implements Serializable {
     protected int price[];
     protected String products[];
     protected int counts[];
@@ -31,6 +33,15 @@ public class Basket {
             return new Basket(product, price, totalProduct);
         }
     }
+
+    public static Basket loadJson(File jsonFile) throws IOException {
+        try (Scanner scanner = new Scanner(jsonFile)) {
+            String json = scanner.nextLine();
+            Gson gson = new Gson();
+            return gson.fromJson(json, Basket.class);
+        }
+    }
+
     public void addToCart(int productNum, int amount) {
         counts[productNum] += amount;
     }
@@ -59,6 +70,14 @@ public class Basket {
             for (int countProd : counts) {
                 printText.print(countProd + " ");
             }
+        }
+    }
+
+    public void saveJson(File jsonFile) throws FileNotFoundException {
+        try (PrintWriter printJson = new PrintWriter(jsonFile)) {
+            Gson gson = new Gson();
+            String json = gson.toJson(this);
+            printJson.println(json);
         }
     }
 }
